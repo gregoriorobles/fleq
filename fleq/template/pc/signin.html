@@ -1,0 +1,37 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">register</h2>
+
+			<!-- Check status message -->
+			{% if box %}<div class="{{ box.status }}">{{ box.message|safe|linebreaksbr }}</div>{% endif %}
+
+				<form id="registerForm" action="/signin" method="POST" enctype="multipart/form-data" >
+					<ul data-role="listview" data-inset="true" class="ui-listview">
+						{% for field in registerForm %}
+							<li>
+								{% if field.errors %}<div class="error">{% endif %}
+								{% if field.value and not field.errors %}<div class="success">{% endif %}
+									<p>{{ field.label_tag }} {{ field }}</p>
+								{% if field.errors or field.value %}</div>{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+					</br>
+					<center>
+						<a href="#" onclick="document.getElementById('registerForm').submit();" class="button save-big">{{ lang.button_register }}</a>
+					</center>
+				</form>
+
+
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}
+

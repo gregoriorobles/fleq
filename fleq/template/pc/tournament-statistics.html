@@ -1,0 +1,122 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">{{ tournament.name }}</h2>
+
+			{% if join %}
+				<a href="/tournament/{{ tournament.pk }}/join" data-role="button" 
+					data-theme="d" data-icon="check" data-iconpos="left">Join this tournament</a><br>
+			{% endif %}
+
+			{% if disjoin %}
+				<a href="/tournament/{{ tournament.pk }}/disjoin" data-role="button" 
+					data-theme="d" data-icon="check" data-iconpos="left">Remove my inscription</a><br>
+			{% endif %}
+
+
+			<!-- Users scores -->
+			{% if scores %}
+				<center>
+					<table id="scores" class="tablesorter">
+						<thead> 
+						<tr> 
+							<th class="tooltip" title="Position">POS</th>		
+							<th class="tooltip" title="Username">USER</th>
+							<th class="tooltip" title="Games played">GP</th>						
+							<th class="tooltip" title="Games won">GW</th>
+							<th class="tooltip" title="Games lost">GL</th>
+							<th class="tooltip" title="Days of reflection">DR</th>							
+							<th class="tooltip" title="Questions Won">QW</th>
+							<th class="tooltip" title="Question Lost">QL</th>
+							<th class="tooltip" title="Score">Pts</th>
+						</tr>
+						</thead>
+
+						<tbody> 			
+						{% for score in scores %}
+						<tr>
+							{% if score.pos == 1 %}
+								<td class="first">{{ score.pos }}</td>
+								<td class="first">{{ score.profile.user.username }}</td>
+								<td class="first">{{ score.total_games }}</td>
+								<td class="first">{{ score.winner_games }}</td>
+								<td class="first">{{ score.loser_games }}</td>
+								<td class="first">{{ score.reflection_days }}</td>								
+								<td class="first">{{ score.winner_questions }}</td>
+								<td class="first">{{ score.loser_questions }}</td>
+								<td class="first">{{ score.score }}</td>				
+							{% else %}
+								<td style="background-color: #EEEEEE;">{{ score.pos }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.profile.user.username }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.total_games }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.winner_games }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.loser_games }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.reflection_days }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.winner_questions }}</td>
+								<td style="background-color: #EEEEEE;">{{ score.loser_questions }}</td>					
+								<td style="background-color: #EEEEEE;">{{ score.score }}</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					<br>
+
+				</center>	
+			{% else %}
+				<div class="info">This tournament hasn't got any player</div>
+			{% endif %}
+
+
+
+			<div data-role="collapsible-set">
+
+
+				{% if rounds %}
+					<div data-role="collapsible" data-collapsed="true" data-inset="true" data-content-theme="b">
+					<h3>Results</h3>
+							<ul data-role="listview" data-split-theme="a" data-divider-theme="e" data-theme="d" class="ui-collapsible-content ui-body-b ui-corner-bottom">
+								{% for round in rounds %}
+									<li data-role="list-divider">Round {{ round.round_number }}</li>
+									{% for game in games %}
+										{% if game.round.pk == round.pk %}
+											<li style="font-family: 'Lobster';"><h3>{{ game.player1 }} vs {{ game.player2 }}</h3>
+												<h4>Result: {{ game.score_player1 }} - {{ game.score_player2 }}</h4>
+												{% if not game.start_time_committed %}
+													<p">Date: {{ game.start_time }} (provisional)</p>
+												{% else %}
+													<p>Date: {{ game.start_time }}</p>
+												{% endif %}
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+							</ul>
+					</div>
+				{% endif %}
+
+
+				{% if tournament.optional_info %}
+					<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+						<h3>Info</h3>
+
+						<div>
+								<p>{{ tournament.optional_info }}</p>
+						</div>
+					</div>
+				{% endif %}
+
+
+			</div>
+
+
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}
+

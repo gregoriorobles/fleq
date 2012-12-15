@@ -1,0 +1,45 @@
+{% extends "mobile/base-mobile.html" %}
+
+{% block header %}
+
+		<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">fleq</h1>
+		<a href="/" data-role="button" data-icon="back" data-iconpos="left" data-mini="true" data-inline="true">Volver</a>
+
+		<div data-role="navbar">
+			<ul>
+				<li><a href="/next-games">Next</a></li>
+				<li><a data-theme="a">Won</a></li>
+				<li><a href="/lost-games">Lost</a></li>
+			</ul>
+		</div>
+
+{% endblock %}
+
+
+{% block main %}
+
+		{% if wonGames %}
+			{% for game in wonGames %}
+				<ul data-role="listview" data-split-theme="d" data-theme="c">
+				<li>
+					<h3 style="font-family: 'Lobster';">{{ game.round }}</h3>
+					<p><h4>{{ game.start_time }}</h4></p>
+					<p>Oponent: <b>
+					{% if game.player1 == user_me %}				
+						{{ game.player2 }}
+					{% else %}
+						{{ game.player1 }}
+					{% endif %}
+					</b></p>
+
+					<p>Result: <b>{{ game.score_player1 }} - {{ game.score_player2 }}</b></p>
+					<br>
+				</li>
+				</ul>
+			{% endfor %}
+
+		{% else %}
+			<div class="ui-body ui-body-e">{{ lang.error_no_won_games }}</div>
+		{% endif %}
+
+{% endblock %}

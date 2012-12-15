@@ -1,0 +1,143 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">select time</h2>
+
+			<div data-role="collapsible-set">
+
+					<center><h2 style="font-family: 'Lobster';">{{ player1 }} vs {{ player2 }}</h2></center>
+
+
+					<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+						<h3>Opponent times</h3>
+
+						{% if opponentSelectedGamesDate %}
+
+							<form id="selectForm" action="select-time" method="post">
+				 				<fieldset data-role="controlgroup">
+
+									{% for date in opponentSelectedGamesDate %}
+											<input  data-inset="true" 
+													type="radio" value="{{ date.date }}" name="hourselected" id="{{ date }}" data-theme="d"/>
+											<label for="{{ date }}">{{ date.date.date_time }}</label>
+									{% endfor %}
+								</fieldset>
+
+								<a href="#" onclick="document.getElementById('selectForm').submit();" 
+								data-role="button" data-theme="b">Select</a>
+							</form>
+
+						{% else %}
+
+							<div>
+									<p>Your opponent hasn't done any selection yet</p>
+							</div>
+
+						{% endif %}
+					</div>
+
+
+
+
+					<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+						<h3>Your previous preferences</h3>
+
+						{% if mySelectedGamesDate %}
+							<form id="deleteForm" action="delete-time" method="post"><div>
+						 			<fieldset data-role="controlgroup">
+										{% for date in mySelectedGamesDate %}
+												<input  data-inset="true" data-theme="d" data-dividertheme="f" 
+														type="checkbox" value="{{ date.date.pk }}" name="hours" id="{{ date.date.pk }}"/>
+												<label for="{{ date.date.pk }}">{{ date.date.date_time }}</label>
+										{% endfor %}
+									</fieldset>
+			
+
+									<a href="#" onclick="document.getElementById('deleteForm').submit();" 
+									data-role="button" data-theme="b">Delete</a>
+
+							</div></form>
+
+						{% else %}
+
+							<div>
+									<p>You haven't selected any time yet</p>
+							</div>
+
+						{% endif %}
+
+					</div>
+		
+
+
+					<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+
+						<h3>Select your preferred times</h3>
+						<form id="saveForm" method="post"><div>
+
+								{% for date in myUncommittedGamesDate %}
+					 				<fieldset data-role="controlgroup">
+										<div data-role="button" data-theme="c">{{ date.date }}</div>
+										{% if today == date.date %}
+											{% for hour in hours %}
+													<input data-inset="true" data-theme="d" data-dividertheme="f"
+														 type="checkbox" value="{{ hour }}/{{date.dateslashed}}" id="{{ hour }}" class="custom" name="hours"/>
+													<label for="{{ hour }}">{{ hour }}:00</label>
+											{% endfor %}
+										{% else %}
+											{% for hour in allhours %}
+													<input data-inset="true" data-theme="d" data-dividertheme="f"
+														 type="checkbox" value="{{ hour }}/{{date.dateslashed}}" id="{{ hour }}" class="custom" name="hours"/>
+													<label for="{{ hour }}">{{ hour }}:00</label>
+											{% endfor %}
+										{% endif %}
+
+									</fieldset>
+								{% endfor %}
+
+								<a href="#" onclick="document.getElementById('saveForm').submit();" 
+								data-role="button" data-theme="b">Save</a>
+
+						</div></form>
+
+					</div>
+
+			</div>
+
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+	<ul>
+		<li>
+			<h2>Games</h2>
+			<ul>
+				<li><a href="/next-games">My next games</a></li>
+				<li><a href="/won-games">Won games</a></li>
+				<li><a href="/lost-games">Lost games</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<h2>Tournaments</h2>
+			<ul>
+				<li><a href="/my-tournaments">My tournaments</a></li>
+				<li><a href="/active-tournaments">Active tournaments</a></li>
+				<li><a href="/next-tournaments">Next tournaments</a></li>
+				<li><a href="/finished-tournaments">Finished tournaments</a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+{% endblock %}

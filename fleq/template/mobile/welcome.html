@@ -1,0 +1,43 @@
+{% extends "mobile/base-mobile.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+
+
+{% block main %}
+
+	<center><h1 style="font-family: 'Lobster'; color: #1B6FC4; margin-bottom: 10%;">Welcome to fleq!</h1></center>
+
+
+			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-content-theme="d">
+				<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b ui-corner-top">IMPORTANT</li>
+
+				<li data-theme="d">
+					<div class="ui-body">
+				<div>FLEQ games are a real time application, so connection is very important to get a good game experience. Please, ensure that you have a good wireless connection before to start a game in FLEQ (use WiFi if you can). The application uses last web technologies, like WebSocket provided by HTML5. This feature only works on recent browser versions (like Mozilla Firefox on Android). You can check if your browser support Websocket in http://www.websocket.org/echo. If your browser can't use this technology, it will use another less quick like AJAX Long Polling which introduces a little delay in comparision with WebSockets. Therefore, use a browser that support WebSocket (if available) and, the most important, use WiFi connection always that you can do it.
+					</div>
+				</li>
+
+			</ul>
+		
+		<div>	
+			<br>
+	    	<a href="/" data-role="button" data-theme="b" data-icon="arrow-r" data-iconpos="right">Continue</a>
+		</div>
+
+{% endblock %}
+
+
+{% block footer %}
+
+		<div data-theme="d" data-role="footer">
+			<h3>
+			    © FLEQ - 2012
+			</h3>
+		</div>
+
+{% endblock %}
+

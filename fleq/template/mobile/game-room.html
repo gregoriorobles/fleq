@@ -1,0 +1,87 @@
+{% extends "mobile/base-mobile.html" %}
+
+
+{% block header %}
+
+	<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">fleq</h1>
+	<a href="/next-games" data-role="button" data-icon="back" data-iconpos="left" data-mini="true" data-inline="true">Volver</a>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+
+  <div id="chat" style="background: #f8f9fa; overflow-y: scroll; height: 150px; max-height: 150px;" 
+			class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset"></div>
+                
+       <div  data-theme="c" data-positioned="fixed">
+          <form id="chatform">
+                <p><input type="text" name="message" maxlength="150" id="text" style="background-color : #FFA9A9;"
+                class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" placeholder="Connecting, please wait..."></p>
+          </form>
+        </div>
+
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script src="/js/socket.io.js"></script>
+
+
+		<script>
+		$(function() {
+			var s = new io.connect('http://' + window.location.hostname, {
+				rememberTransport: false
+			});
+
+			s.on('connect', function() {
+				data = '{"code": "1", "room": "{{ game.id }}", "user": "{{ user_me.username }}"}';
+				s.send(data);
+			});
+
+			// Establish event handlers
+			s.on('disconnect', function() {
+				$("#text").attr("placeholder", "Reconnecting...");
+				$("#text").css({'background-color' : '#FFA9A9'});
+				s.socket.reconnect();
+			});
+
+			s.on('message', function(data) {
+				var data = jQuery.parseJSON(data);
+
+				if (data.code == 1){
+					$("#text").css({'background-color' : '#FFFFFF'});
+					$("#text").attr("placeholder", "Introduce a message");
+				}else if (data.code == 2){
+					$("#chat").append("<div class='message' style='margin: 1px 3px 1px 3px;'>" + data.user + ": " + data.message + "</div>");
+					$("#chat").scrollTop($("#chat")[0].scrollHeight);
+				}
+			});
+
+			//send the message when submit is clicked
+			$('#chatform').submit(function (evt) {
+				var msg = $('#chatform [type=text]').val();
+				
+				while (msg.indexOf('"') != -1){
+					msg = msg.replace('"', '&quot;');
+				}
+
+				$('#chatform [type=text]').val('');
+				msg = "\"".concat(msg).concat("\"}");
+				var data = '{"code": "2", "room": "{{ game.id }}", "user": "{{ user_me.username }}", "message": ';
+				data = data.concat(msg);
+				s.send(data);
+				return false;
+			});
+		});
+		</script>
+
+		<script>window.room = {{ game.id }};</script>
+
+{% endblock %}
+
+
+{% block footer %}
+
+
+{% endblock %}

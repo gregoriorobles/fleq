@@ -1,0 +1,50 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">load questions</h2>
+
+				<center>
+					<!-- Check status message -->
+					{% if box %}<div class="{{ box.status }}">{{ box.message|safe|linebreaksbr }}</div>{% endif %}
+
+					<!-- Show errors from form -->
+					{% if form.errors %}<div class="error">{% endif %}
+					{% if form.non_field_errors %}{% for error in rform.non_field_errors %}{{ error }}{% endfor %}<br />{% endif %}
+					{% for field in form %}
+						{% if field.errors %}<u>{{ field.label_tag }}</u>: {% for error in field.errors %}{{ error }}{% endfor %}<br />{% endif %}
+					{% endfor %}
+					{% if form.errors %}</div>{% endif %}
+
+
+					<form id="loadQuestionsForm" action="/load-questions" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+						<center>
+							<ul data-role="listview" data-inset="true" class="ui-listview">
+								{% for field in form %}
+									<li>
+										{% if field.errors %}<div class="error">{% endif %}
+										{% if field.value and not field.errors %}<div class="success">{% endif %}
+											<p>{{ field.label_tag }}</p> <p>{{ field }}</p>
+										{% if field.errors or field.value %}</div>{% endif %}
+									</li>
+								{% endfor %}
+							</ul>
+						</center>
+						<br>
+
+						{% if not box %}
+							<a href="#" onclick="document.getElementById('loadQuestionsForm').submit();" 
+													class="button add-big">{{ lang.button_load_questions }}</a>
+						{% endif %}
+
+					</form>
+				</center>
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}

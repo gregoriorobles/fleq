@@ -1,0 +1,80 @@
+{% extends "pc/base.html" %}
+
+
+
+{% block header-right %}
+
+	<table cellspacing="0" align="right">
+		<tbody>
+			<tr>
+				<td>
+					<label>Username</label>
+				</td>
+				<td>
+					<label>Password</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="user" id="user" tabindex="1">
+				</td>
+				<td>
+					<input type="password" name="pass" id="pass" tabindex="2">
+				</td>
+				<td>
+					<label><a href="#" class="button">Login</a></label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">Welcome to fleq!</h2>
+			<div class="entry">
+				<p>A synchronous online competition to motivate and improve learning</p>
+			</div>
+			<center>
+				<img src="/images/fleq-mobile.png" width="650" height="350">
+			</center>
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+	<ul>
+		<li>
+			<h2>What is fleq?</h2>
+			<p>FLEQ is a system that allows to organizes quizbowl tournaments easily. Its name is an acronym of Free LibreSoft Educational Quizbowl</p>
+		</li>
+		<!--<li>
+			<h2>Tournaments</h2>
+			<ul>
+				<li><a href="#">Active tournaments</a></li>
+				<li><a href="#">Next tournaments</a></li>
+				<li><a href="#">Finished tournaments</a></li>
+			</ul>
+		</li>-->
+		<li>
+			<div>
+			<h2>Tournaments</h2>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="index.html">Active tournaments</a></li>
+				<li><a href="index.html">Next tournaments</a></li>
+				<li><a href="index.html">Finished tournaments</a></li>
+			</ul>
+			</div>
+		</li>
+	</ul>
+
+{% endblock %}

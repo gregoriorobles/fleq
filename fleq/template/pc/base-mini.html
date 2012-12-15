@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Free Libresoft Educational Quizbowl</title>
+
+	<link href="http://fonts.googleapis.com/css?family=Abel" rel="stylesheet" type="text/css" />
+	<link href="/css/custom-style.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="/css/my-jquery-mobile.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link href="/css/jquery-tablesorter.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+	<link href="/css/google-buttons.css" rel="stylesheet" type="text/css" media="screen">
+
+	{% block js %}
+
+	{% endblock %}
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+	{% block header %}
+
+		<div id="header-wrapper-mini">
+			<div id="header">
+				<table width="950">
+					<tr>
+						<td width="490">
+							<div>
+								<h1><a id="logo-mini" href="/">fleq</a></h1>
+							</div>
+						</td>
+						<td>
+						<table cellspacing="0" align="right">
+							<tbody>
+								<tr>
+									<td>
+										{% if user_me.is_authenticated %}
+											<a data-role="button" href="/logout" data-mini="true" data-theme="a" data-icon="delete">Logout</a>
+										{% endif %}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>			
+				</table>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<div id="splash"></div>
+
+	{% endblock %}
+
+
+
+	<div id="page">
+		<div id="content">
+
+			{% block content %}
+
+			{% endblock %}
+
+		</div>
+		<!-- end #content -->
+
+
+		<div id="sidebar-bg">
+
+			<div id="sidebar">
+
+				{% if user_me.is_authenticated %}
+
+					<ul>
+
+						{% if user_me.is_superuser %}
+							<li>
+								<h2>admin</h2>
+								<ul>
+									<li><a href="/new-tournament">New tournament</a></li>
+									<li><a href="/load-questions">Load questions</a></li>
+								</ul>
+							</li>
+						{% endif %}
+
+						<li>
+							<h2>Games</h2>
+							<ul>
+								<li><a href="/next-games">My next games</a></li>
+								<li><a href="/won-games">Won games</a></li>
+								<li><a href="/lost-games">Lost games</a></li>
+							</ul>
+						</li>
+
+						<li>
+							<h2>Tournaments</h2>
+							<ul>
+								<li><a href="/my-tournaments">My tournaments</a></li>
+								<li><a href="/active-tournaments">Active tournaments</a></li>
+								<li><a href="/next-tournaments">Next tournaments</a></li>
+								<li><a href="/finished-tournaments">Finished tournaments</a></li>
+							</ul>
+						</li>
+
+					</ul>
+		
+				{% else %}
+					<ul>
+						<li>
+							<h2>What is fleq?</h2>
+							<p>FLEQ is a system that allows to organizes quizbowl tournaments easily. Its name is an acronym of Free LibreSoft Educational Quizbowl</p>
+						</li>
+
+						<li>
+							<h2>How to use</h2>
+							<ul>
+								<li><a href="#">Step by step</a></li>
+							</ul>
+						</li>
+
+						<li>
+							<div>
+							<h2>Tournaments</h2>
+							<ul>
+								<li><a href="index.html">Active tournaments</a></li>
+								<li><a href="index.html">Next tournaments</a></li>
+								<li><a href="index.html">Finished tournaments</a></li>
+							</ul>
+							</div>
+						</li>
+					</ul>
+
+
+				{% endif %}
+
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- end #page -->
+
+</div>
+
+</body>
+</html>

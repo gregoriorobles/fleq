@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Free Libresoft Educational Quizbowl</title>
+
+	<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+
+<div data-role="page" class="type-index" style="height: 100%;">
+
+	<div data-role="header" data-theme="b">
+		{% block header %}
+
+		{% endblock %}
+	</div>
+
+
+	<div data-role="content" data-theme="b">
+
+		{% block main %}
+
+
+		{% endblock %}
+
+	</div>
+
+	{% block footer %}
+
+	{% endblock %}
+
+
+</div>
+
+	{% block extrajs %}
+
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "mobile/base-mobile.html" %}
+
+
+{% block header %}
+
+		<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">fleq</h1>
+		<a href="#" data-role="button" data-icon="grid" data-iconpos="left" data-mini="true" data-inline="true">Menu</a>
+		<a href="/logout" data-role="button" data-icon="delete" data-iconpos="left" data-mini="true" data-inline="true">Exit</a>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+                <li data-role="list-divider">Games</li>
+                <li><a href="/next-games">Next games<span class="ui-li-count">{{ nextGames }}</span></a></li>
+                <li><a href="/won-games">Won games<span class="ui-li-count">{{ wonGames }}</span></a></li>
+                <li><a href="/lost-games">Lost games<span class="ui-li-count">{{ lostGames }}</span></a></li>
+        </ul>
+
+
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+			<li data-role="list-divider">Tournaments</li>
+			<li><a href="/my-tournaments">My tournaments<span class="ui-li-count">{{ myTournaments }}</span></a></li>
+			<li><a href="/active-tournaments">Active tournaments<span class="ui-li-count">{{ activeTournaments }}</span></a></li>
+			<li><a href="/next-tournaments">Next tournaments<span class="ui-li-count">{{ nextTournaments }}</span></a></li>
+			<li><a href="/finished-tournaments">Finished tournaments<span class="ui-li-count">{{ finishedTournaments }}</span></a></li>
+		</ul>
+
+{% endblock %}
+
+
+{% block footer %}
+
+	<div data-theme="d" data-role="footer">
+	    <h3>
+	        © FLEQ - 2012
+	    </h3>
+	</div>
+
+{% endblock %}

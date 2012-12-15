@@ -1,0 +1,78 @@
+{% extends "pc/base.html" %}
+
+
+{% block header %}
+
+	<div id="header-wrapper">
+		<div id="header">
+			<table width="950">
+				<tr>
+					<td width="490">
+						<div>
+							<h1><a id="logo" href="/">fleq</a></h1>
+						</div>
+					</td>
+					<td>
+						<table cellspacing="0" align="right">
+							<tbody>
+								<tr>
+									<td>
+										<label id="login"></label>
+									</td>
+									<td>
+										<label id="login"></label>
+									</td>
+								</tr>
+								<tr>
+									<form id="loginForm" action="/" method="POST" enctype="multipart/form-data">
+										<td style="padding-right: 5px;">
+											<input placeholder="username" id="id_username" type="text" name="username" maxlength="100" tabindex="1">
+										</td>
+										<td style="padding-right: 5px;">
+											<input placeholder="password" id="id_password" type="password" name="password" maxlength="100" tabindex="2">
+										</td>
+										<td>
+											<label><a href="#" onclick="document.getElementById('loginForm').submit();" class="button">Login</a></label>
+										</td>
+									</form>
+
+									<!-- Show errors from form -->
+									{% if loginForm.errors %}<div class="error_sidebar">{% endif %}
+									{% if loginForm.non_field_errors %}{% for error in loginForm.non_field_errors %}{{ error }}{% endfor %}<br />{% endif %}
+									{% if loginForm.errors %}</div>{% endif %}
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+	
+			</table>
+		</div>
+	</div>
+	<!-- end #header -->
+
+	<div id="splash"></div>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">Welcome to fleq!</h2>
+			<center>
+				<img src="/images/fleq-mobile.png" width="650" height="350">
+
+				<fieldset class="ui-grid-b" data-theme="b">
+						<div class="ui-block-a"></div>
+						<div style="font-family: 'Lobster';" class="ui-block-b"><a href="/signin"><button  data-theme="b">Register now!</button></a></div>
+						<div class="ui-block-c"></div>
+			    </fieldset>
+			</center>
+		</div>
+	</div>
+
+{% endblock %}

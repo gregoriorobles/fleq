@@ -1,0 +1,52 @@
+{% extends "mobile/base-mobile.html" %}
+
+{% block header %}
+
+		<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">games</h1>
+		<a href="/" data-role="button" data-icon="back" data-iconpos="left" data-mini="true" data-inline="true">Volver</a>
+
+		<div data-role="navbar">
+			<ul>
+				<li><a data-theme="a">Next</a></li>
+				<li><a href="/won-games">Won</a></li>
+				<li><a href="/lost-games">Lost</a></li>
+			</ul>
+		</div>
+
+{% endblock %}
+
+
+{% block main %}
+
+
+		{% if myNextGames %}
+
+			{% for g in myNextGames %}
+				<ul data-role="listview" data-split-theme="e" data-theme="d">
+				<li>
+					{% if g.start_time_committed %}
+						<a href="/game-room/{{ g.pk }}">
+					{% else %}
+						<a href="/game-room/{{ g.pk }}/select-time">
+					{% endif %}
+					<h3>{{ g.player1.username }} vs {{ g.player2.username }}</h3>
+					<p><b>{{ lang.round }} {{ g.round.round_number }}</b></p>
+					<p>{{ g.round.tournament.name }}</p>
+
+					{% if not g.start_time_committed %}
+						<h3 style="font-family: 'Lobster';">Date: {{ g.start_time }} (provisional)</h3>
+					{% else %}
+						<h3 style="font-family: 'Lobster';">Date: {{ g.start_time }}</h3>
+					{% endif %}
+					<br>
+					</a>
+				</li>
+				</ul>
+			{% endfor %}
+
+		{% else %}
+			<div class="ui-body ui-body-e">{{ lang.error_no_next_games }}</div>
+		{% endif %}
+
+
+{% endblock %}

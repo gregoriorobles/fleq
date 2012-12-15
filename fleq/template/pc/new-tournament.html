@@ -1,0 +1,48 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">new tournament</h2>
+
+			<!-- Check status message -->
+			{% if box %}<div class="{{ box.status }}">{{ box.message|safe|linebreaksbr }}</div>{% endif %}
+
+			<div class="entry">
+				<form id="newTournamentForm" action="/new-tournament" method="POST" enctype="multipart/form-data" >
+					<ul data-role="listview" data-inset="true" class="ui-listview" data-theme="c">
+					{% for field in form %}
+						<li>
+						{% if field.errors %}<div class="error">{% endif %}
+							{% if form.categories.label_tag == field.label_tag %}
+								<div data-role="collapsible-set">
+									<div data-role="collapsible" data-collapsed="true" data-inset="true">
+										<h3>Categories</h3>
+										{{ field }}
+									</div>
+									<br>
+								</div>
+
+							{% else %}
+								<p>{{ field.label_tag }}{{ field }}</p>
+							{% endif %}
+
+						{% if field.errors %}</div>{% endif %}
+						</li>
+					{% endfor %}
+					</ul>
+					<br>
+					<center>
+						<a href="#" onclick="document.getElementById('newTournamentForm').submit();" class="button add-big">{{ lang.button_new_tournament }}</a>
+					</center>
+				</form>
+			</div>
+
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}

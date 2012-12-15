@@ -1,0 +1,49 @@
+{% extends "mobile/base-mobile.html" %}
+
+{% block header %}
+
+
+{% endblock %}
+
+
+
+{% block main %}
+
+	<h1 style="text-align: center; font-family: 'Lobster'; color: #1B6FC4;
+		 font-size: 50px; letter-spacing: 5px; margin: 0; padding-top: 5%">fleq</h1>
+
+	<h3 style="text-align: center; font-family: 'Lobster'; margin-bottom: 0;
+			letter-spacing: 1px;">Have a good day!</h3>
+
+
+	<div data-role="content">
+
+		{% if loginForm.errors %}<div class="ui-body ui-body-e">{% endif %}
+		{% if loginForm.non_field_errors %}{% for error in loginForm.non_field_errors %}{{ error }}{% endfor %}<br/>{% endif %}
+		{% if loginForm.errors %}</div>{% endif %}	
+		<form id="loginForm" action="/" method="POST" enctype="multipart/form-data" >
+				<p><input id="id_username" type="text" name="username" maxlength="100" 
+						class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" placeholder="username"></p>
+				<p><input id="id_password" type="password" name="password" maxlength="100"
+						 class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" placeholder="password"></p>
+			<center>
+				<a href="/" onclick="document.getElementById('loginForm').submit();" 
+				data-role="button" data-theme="b" data-icon="star" data-iconpos="left">Log In</a>
+			</center>
+		</form>
+
+	</div>
+
+{% endblock %}
+
+
+
+{% block footer %}
+
+		<div data-theme="d" data-role="footer" data-position="fixed">
+			<h3>
+			    © FLEQ - 2012
+			</h3>
+		</div>
+
+{% endblock %}

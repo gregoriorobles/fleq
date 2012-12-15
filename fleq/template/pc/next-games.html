@@ -1,0 +1,55 @@
+{% extends "pc/base-mini.html" %}
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">my next games</h2>
+
+				{% if myNextGames %}
+					<ul data-role="listview" data-inset="true" data-theme="d" data-divider-theme="d">
+
+						{% for date in dates %}
+							<li data-role="list-divider">{{ date }}</li>
+
+							{% for game in myNextGames %}
+								{% if date == game.start_time.date %}
+									<li>
+											{% if game.start_time_committed %}
+												{% if not game.round.tournament.only_mobile_devices %}
+													<a href="/game-room/{{ game.pk }}">
+												{% endif %}												
+											{% else %}
+												<a href="/game-room/{{ game.pk }}/select-time">
+											{% endif %}
+
+											{% if not game.round.tournament.only_mobile_devices %}
+												<h3>{{ game.player1 }} vs {{ game.player2 }}</h3>
+											{% else %}
+												<h3>{{ game.player1 }} vs {{ game.player2 }}: only from mobile devices</h3>
+											{% endif %}
+
+											<p><strong>{{ game.round }}</strong></p>
+
+											{% if game.start_time_committed %}
+												<p class="ui-li-aside"><strong>{{ game.start_time.time }}</strong></p>
+											{% else %}
+												<p class="ui-li-aside"><strong>{{ game.start_time.time }} (provisional)</strong></p>
+											{% endif %}
+									</a></li>
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</ul>
+
+				{% else %}
+					<div class="ui-body ui-body-e">You haven't got any future game</div>
+				{% endif %}
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}
+

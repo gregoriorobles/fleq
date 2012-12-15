@@ -1,0 +1,67 @@
+{% extends "pc/base-mini.html" %}
+
+
+
+{% block content %}
+
+	<div class="contentbg">
+		<div class="post">
+			<h2 class="title">finished tournaments</h2>
+
+			{% if finishedTournaments %}
+				<ul data-role="listview" data-inset="true" data-split-theme="e" data-theme="d">	
+				{% for t in finishedTournaments %}
+					<li><a href="/tournament/{{ t.pk }}">
+						<h3 style="font-family: 'Lobster';">{{ t.name }}</h3>				
+						<p>						
+						{% for tc in tournamentCategories %}
+								<b>Categories: </b>{% for c in tc.categories %}{{ c }} {% endfor %}
+						{% endfor %}
+						</p>					
+						<p><b>Numbers of rounds: </b> {{ t.rounds }}</p>
+						<p><b>Days per round: </b> {{ t.days_per_round }}</p>
+						<p><b>Start date: </b> {{ t.start_date }}</p>
+						<p><b>Finish date: </b> {{ t.finish_date }}</p>
+						<br>
+						</a>
+					</li>
+				{% endfor %}
+
+				</ul>
+
+			{% else %}
+				<div class="ui-body ui-body-e">Sorry! System hasn't got any finished tournament</div>
+			{% endif %}
+
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+	<ul>
+		<li>
+			<h2>Games</h2>
+			<ul>
+				<li><a href="/next-games">My next games</a></li>
+				<li><a href="/won-games">Won games</a></li>
+				<li><a href="/lost-games">Lost games</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<h2>Tournaments</h2>
+			<ul>
+				<li><a href="/my-tournaments">My tournaments</a></li>
+				<li><a href="/active-tournaments">Active tournaments</a></li>
+				<li><a href="/next-tournaments">Next tournaments</a></li>
+				<li><a href="/finished-tournaments">Finished tournaments</a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "mobile/base-mobile.html" %}
+
+{% block header %}
+
+		<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">tournaments</h1>
+		<a href="/" data-role="button" data-icon="back" data-iconpos="left" data-mini="true" data-inline="true">Volver</a>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+
+<center><h2 style="font-family: 'Lobster';">{{ tournament.name }}</h2></center>
+
+<div data-role="collapsible-set">
+
+	{% if join %}
+	    <a href="/tournament/{{ tournament.pk }}/join" data-role="button" 
+			data-theme="d" data-icon="check" data-iconpos="left">Join this tournament</a><br>
+	{% endif %}
+
+	{% if disjoin %}
+	    <a href="/tournament/{{ tournament.pk }}/disjoin" data-role="button" 
+			data-theme="d" data-icon="check" data-iconpos="left">Remove my inscription</a><br>
+	{% endif %}
+
+	
+	<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+	<h3>Chart</h3>
+
+		{% if scores %}
+			<div class="ui-grid-d" data-inset="true" class="ui-collapsible-content ui-body-b ui-corner-bottom">
+				<div class="ui-block-a"><div class="ui-bar ui-bar-b">User</div></div>
+				<div class="ui-block-b"><div class="ui-bar ui-bar-b">GP</div></div>
+				<div class="ui-block-c"><div class="ui-bar ui-bar-b">GW</div></div>
+				<div class="ui-block-d"><div class="ui-bar ui-bar-b">GL</div></div>
+				<div class="ui-block-e"><div class="ui-bar ui-bar-b">Pts</div></div>
+		
+
+				{% for score in scores %}
+					<div class="ui-block-a"><div class="ui-bar ui-bar-d">{{ score.profile.user.username }}</div></div>
+					<div class="ui-block-b"><div class="ui-bar ui-bar-c">{{ score.total_games }}</div></div>
+					<div class="ui-block-c"><div class="ui-bar ui-bar-c">{{ score.winner_games }}</div></div>
+					<div class="ui-block-d"><div class="ui-bar ui-bar-c">{{ score.loser_games }}</div></div>
+					<div class="ui-block-e"><div class="ui-bar ui-bar-e">{{ score.score }}</div></div>
+				{% endfor %}
+
+			</div>
+
+		{% else %}
+			<div>
+					<p>This tournament hasn't users yet</p>
+			</div>
+		{% endif %}
+
+
+	</div>
+
+	{% if rounds %}
+		<div data-role="collapsible" data-collapsed="true" data-inset="true" data-content-theme="b">
+		<h3>Results</h3>
+				<ul data-role="listview" data-split-theme="a" data-divider-theme="e" data-theme="d" class="ui-collapsible-content ui-body-b ui-corner-bottom">
+					{% for round in rounds %}
+						<li data-role="list-divider">Round {{ round.round_number }}</li>
+						{% for game in games %}
+							{% if game.round.pk == round.pk %}
+								<li style="font-family: 'Lobster';"><h3>{{ game.player1 }} vs {{ game.player2 }}</h3>
+									<h4>Result: {{ game.score_player1 }} - {{ game.score_player2 }}</h4>
+									{% if not game.start_time_committed %}
+										<p">Date: {{ game.start_time }} (provisional)</p>
+									{% else %}
+										<p>Date: {{ game.start_time }}</p>
+									{% endif %}
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</ul>
+		</div>
+	{% endif %}
+
+
+	{% if tournament.optional_info %}
+		<div data-role="collapsible" data-collapsed="true" data-content-theme="b">
+			<h3>Info</h3>
+
+			<div>
+					<p>{{ tournament.optional_info }}</p>
+			</div>
+		</div>
+	{% endif %}
+
+
+</div>
+
+
+{% endblock %}

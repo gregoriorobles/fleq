@@ -1,0 +1,48 @@
+{% extends "mobile/base-mobile.html" %}
+
+{% block header %}
+
+		<h1 style="font-family: 'Lobster'; letter-spacing: 3px;">tournaments</h1>
+		<a href="/" data-role="button" data-icon="back" data-iconpos="left" data-mini="true" data-inline="true">Volver</a>
+
+        <div data-role="navbar">
+                <ul>
+                        <li><a href="/my-tournaments">Me</a></li>
+                        <li><a href="/active-tournaments">Active</a></li>
+                        <li><a href="/next-tournaments">Next</a></li>
+                        <li><a data-theme="a">Finished</a></li>
+                </ul>
+        </div>
+
+
+{% endblock %}
+
+
+{% block main %}
+
+		{% if finishedTournaments %}
+			<ul data-role="listview" data-split-theme="e" data-theme="d">	
+			{% for t in finishedTournaments %}
+				<li><a href="/tournament/{{ t.pk }}">
+					<h3 style="font-family: 'Lobster';">{{ t.name }}</h3>				
+					<p>						
+					{% for tc in tournamentCategories %}
+							<b>Categories: </b>{% for c in tc.categories %}{{ c }} {% endfor %}
+					{% endfor %}
+					</p>					
+					<p><b>Numbers of rounds: </b> {{ t.rounds }}</p>
+					<p><b>Days per round: </b> {{ t.days_per_round }}</p>
+					<p><b>Start date: </b> {{ t.start_date }}</p>
+					<p><b>Finish date: </b> {{ t.finish_date }}</p>
+					<br>
+					</a>
+				</li>
+			{% endfor %}
+
+			</ul>
+
+		{% else %}
+			<div class="ui-body ui-body-e">Sorry! System hasn't got any finished tournament</div>
+		{% endif %}
+
+{% endblock %}
